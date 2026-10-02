@@ -1,0 +1,40 @@
+@startuml
+class User {
+  -id: UUID
+  -naam: String
+  -email: String
+  -wachtwoordHash: String
+  +registreer()
+  +meldAan(wachtwoord: String): boolean
+}
+
+class Player {
+  -bijnaam: String
+  +berekenTotaalScore(): int
+  +bekijkGeschiedenis(): List<Score>
+}
+
+class Game {
+  -titel: String
+  -minSpelers: int
+  -maxSpelers: int
+  -gemiddeldeSpeelduur: int
+}
+
+class Session {
+  -datum: Date
+  -locatie: String
+  +voegSpelerToe(speler: Player)
+  +registreerUitslag(speler: Player, punten: int, gewonnen: boolean)
+}
+
+class Score {
+  -punten: int
+  -gewonnen: boolean
+}
+
+User "1" -- "1" Player : heeft profiel >
+Game "1" o-- "0..*" Session : wordt gespeeld in >
+Session "1" *-- "2..*" Score : registreert >
+Player "1" -- "0..*" Score : behaalt >
+@enduml

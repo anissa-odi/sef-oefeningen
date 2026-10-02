@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+actor Gebruiker
+
+usecase "Registreren" as UC1
+usecase "Aanmelden" as UC2
+usecase "Spel toevoegen" as UC3
+usecase "Game-avond plannen" as UC4
+usecase "Score registreren" as UC5
+usecase "Leaderboard bekijken" as UC6
+
+Gebruiker --> UC1
+Gebruiker --> UC2
+Gebruiker --> UC3
+Gebruiker --> UC4
+Gebruiker --> UC5
+Gebruiker --> UC6
+
+UC3 ..> UC2 : <<include>>
+UC4 ..> UC2 : <<include>>
+UC5 ..> UC2 : <<include>>
+UC6 ..> UC2 : <<include>>
+@enduml

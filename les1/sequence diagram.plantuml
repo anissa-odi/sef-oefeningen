@@ -1,0 +1,25 @@
+@startuml
+actor Gebruiker
+participant "Session" as S
+participant "Game" as G
+participant "Player" as P
+participant "Score" as Sc
+
+Gebruiker -> S : nieuweSessie(spel, datum, locatie)
+S -> G : haalDetails()
+G --> S : spelinfo
+
+loop voor elke deelnemer
+    Gebruiker -> S : voegSpelerToe(speler)
+    S -> P : registreerDeelname()
+end
+
+... game-avond vindt plaats ...
+
+loop voor elke deelnemer
+    Gebruiker -> S : registreerUitslag(speler, punten, gewonnen)
+    S -> Sc : nieuw(speler, sessie, punten, gewonnen)
+end
+
+S --> Gebruiker : bevestiging
+@enduml
