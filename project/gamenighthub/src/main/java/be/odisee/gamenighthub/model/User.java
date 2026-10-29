@@ -1,26 +1,24 @@
 package be.odisee.gamenighthub.model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class User {
-    private UUID id;
+    private int id;
     private String naam;
     private String email;
     private String wachtwoordHash;
 
-    public User(String naam, String email, String wachtwoordHash) {
-        this.id = UUID.randomUUID();
-        this.naam = naam;
-        this.email = email;
-        this.wachtwoordHash = wachtwoordHash;
-    }
-
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
     public String getNaam() {
         return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
     }
 
     public String getEmail() {
@@ -35,8 +33,26 @@ public class User {
         return wachtwoordHash;
     }
 
+    public void setWachtwoordHash(String wachtwoordHash) {
+        this.wachtwoordHash = wachtwoordHash;
+    }
+
+    public User(String naam, String email, String wachtwoordHash){
+        this.naam = naam;
+        this.email = email;
+        this.wachtwoordHash = wachtwoordHash;
+    }
+
     @Override
-    public String toString() {
-        return naam + " (" + email + ")";
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+        return Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(email);
     }
 }

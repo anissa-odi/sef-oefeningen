@@ -2,11 +2,11 @@ package be.odisee.gamenighthub.repository;
 
 import be.odisee.gamenighthub.model.User;
 
-import java.util.List;
-
 public interface UserRepository {
+    boolean bestaatEmail(String email);
+
+    /** @return de gebruiker, of null als het e-mailadres onbekend is */
+    User zoekOpEmail(String email);
+
     void save(User user);
-    List<User> findAll();
-    User findByEmail(String email);      // null als niet gevonden
-    void delete(User user);
 }

@@ -1,6 +1,6 @@
 package be.odisee.gamenighthub.model;
 
-import java.util.Objects;
+import java.util.Locale;
 
 public class Game {
     private String titel;
@@ -9,6 +9,18 @@ public class Game {
     private int gemiddeldeSpeelduur;   // in minuten
 
     public Game(String titel, int minSpelers, int maxSpelers, int gemiddeldeSpeelduur) {
+        if (titel == null || titel.isBlank()) {
+            throw new IllegalArgumentException("titel mag niet leeg zijn");
+        }
+        if (minSpelers < 1) {
+            throw new IllegalArgumentException("minSpelers moet minstens 1 zijn");
+        }
+        if (maxSpelers < minSpelers) {
+            throw new IllegalArgumentException("maxSpelers mag niet kleiner zijn dan minSpelers");
+        }
+        if (gemiddeldeSpeelduur <= 0) {
+            throw new IllegalArgumentException("gemiddeldeSpeelduur moet positief zijn");
+        }
         this.titel = titel;
         this.minSpelers = minSpelers;
         this.maxSpelers = maxSpelers;
@@ -31,6 +43,7 @@ public class Game {
         return gemiddeldeSpeelduur;
     }
 
+    /** Is dit spel geschikt voor dit aantal spelers? Grenzen inbegrepen. */
     public boolean isGeschiktVoor(int aantalSpelers) {
         return aantalSpelers >= minSpelers && aantalSpelers <= maxSpelers;
     }
@@ -40,17 +53,12 @@ public class Game {
         if (!(o instanceof Game)) {
             return false;
         }
-        Game andere = (Game) o;
-        return this.titel.equals(andere.titel);
+        Game other = (Game) o;
+        return this.titel.equalsIgnoreCase(other.titel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(titel);
-    }
-
-    @Override
-    public String toString() {
-        return titel + " (" + minSpelers + "-" + maxSpelers + " spelers)";
+        return titel.toLowerCase(Locale.ROOT).hashCode();
     }
 }

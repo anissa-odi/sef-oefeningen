@@ -1,5 +1,7 @@
 package be.odisee.gamenighthub.model;
 
+import java.util.Objects;
+
 public class Player {
     private String bijnaam;
     private User user;
@@ -22,7 +24,15 @@ public class Player {
     }
 
     @Override
-    public String toString() {
-        return bijnaam;
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Player player = (Player) o;
+        return Objects.equals(user, player.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(user);
     }
 }

@@ -2,11 +2,7 @@ package be.odisee.gamenighthub.repository;
 
 import be.odisee.gamenighthub.model.Game;
 
-import java.util.List;
-
 public interface GameRepository {
-    void save(Game game);
-    List<Game> findAll();
-    Game findByTitel(String titel);      // null als niet gevonden
-    void delete(Game game);
+    /** @return het spel, of null als de titel onbekend is */
+    Game zoekOpTitel(String titel);
 }
